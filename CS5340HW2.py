@@ -1,8 +1,3 @@
-
-# coding: utf-8
-
-# In[ ]:
-
 import cv2
 import numpy as np
 import math
@@ -41,18 +36,17 @@ img = cv2.imread('fox.jpg')
 print("Image shape is: ", img.shape)
 
 #number of clusters
-K = 2000
+K = 2
 
 #Initialization
 pi, u, covmat, probmat, x2 = Initialization(K, height, width, channel)
 
 
-# In[ ]:
 
 """
 This cell runs the EM algorithm. Can be run multiple times to increase iterations.
 """
-total_iteration = 5
+total_iteration = 20
 for i in range(total_iteration):
     print("Iteration = ",i)
     
@@ -60,9 +54,6 @@ for i in range(total_iteration):
     
     # Determinant of the covmat. K dimentional vector.
     covmatDet = np.linalg.det(covmat)
-    for k in range(K):    
-        if k%100==0:    
-            print("covmatDet=",covmatDet[k])
     
     # Inverse of the covmat. Used in calculation of normal probability.
     # K*channel*channel tensor
@@ -109,7 +100,6 @@ for i in range(total_iteration):
     print("fraction = ",pi)
 
 
-# In[ ]:
 
 """
 Show filter.
@@ -120,35 +110,4 @@ for h in range(height):
     for w in range(width):
         heatmap[h,w,:] = np.array(u[np.argmax(probmat[:,h,w])],dtype=float)
 
-cv2.imwrite("fox_2000_5.jpg",heatmap)
-
-
-# In[ ]:
-
-
-
-
-# In[ ]:
-
-
-
-
-# In[ ]:
-
-
-
-
-# In[ ]:
-
-
-
-
-# In[ ]:
-
-
-
-
-# In[ ]:
-
-
-
+cv2.imwrite("fox_2.jpg",heatmap)
